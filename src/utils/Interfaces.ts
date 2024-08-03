@@ -5,7 +5,7 @@ export interface user{
     googleId: string;
 }
 
-export interface Movie{
+export interface movie{
     title: string;
     description: string;
     genre: string,
