@@ -17,7 +17,7 @@ export const registerUser = async(req:Request, res:Response,next:NextFunction) =
             password:hashedPassword
         })
         await newUser.save()
-        res.status(201).json({message:"User created successfully"})
+       return res.status(201).json({message:"User created successfully"})
 
     } catch (error:any) {
         res.status(500).json({
@@ -54,7 +54,7 @@ export const getAllUsers = async (req:Request, res:Response, next:NextFunction) 
     try {
         const allUsers = await UserModel.find()
 
-        res.status(200).json({
+       return res.status(200).json({
             message: "Users fetched successfully",
             data: allUsers,
         })
@@ -65,12 +65,12 @@ export const getAllUsers = async (req:Request, res:Response, next:NextFunction) 
     }
 }
 
-export const findOneUser = async (req:Request, res:Response, next:NextFunction) =>{
+export const findOneUser = async (req:Request, res:Response, next:NextFunction): Promise<void> =>{
     try {
         const {userID} = req.params;
         const user = await UserModel.findById(userID)
 
-        return res.status(200).json({
+         res.status(200).json({
             message: "Found Successfully",
             data: user,
         })
