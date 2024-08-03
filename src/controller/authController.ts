@@ -17,7 +17,9 @@ export const registerUser = async(req:Request, res:Response,next:NextFunction) =
             password:hashedPassword
         })
         await newUser.save()
-       return res.status(201).json({message:"User created successfully"})
+       return res.status(201).json({
+        message:'User created successfully'
+    })
 
     } catch (error:any) {
         res.status(500).json({
@@ -31,15 +33,15 @@ export const LoginUser = async (req:Request, res:Response): Promise<void> =>{
         const {email,password} = req.body;
         const user:any = await UserModel.findOne({email});
         if (!user) {
-            res.status(400).json({message:"User not found"})
+            res.status(400).json({message:'User not found'})
         }
         const isMatch = await bcrypt.compare(password,user.password);
         if (!isMatch) {
-            res.status(400).json({message:"Invalid password"})
+            res.status(400).json({message:'Invalid password'})
         }
         const token = jwt.sign({ id: user._id }, environmentVariable.JWT_SECRET as string,{expiresIn: '1h'} )
          res.status(200).json({
-            message: "User logged in successfully",
+            message: 'User logged in successfully',
             data: token,
         })
 
@@ -55,7 +57,7 @@ export const getAllUsers = async (req:Request, res:Response, next:NextFunction) 
         const allUsers = await UserModel.find()
 
        return res.status(200).json({
-            message: "Users fetched successfully",
+            message: 'Users fetched successfully',
             data: allUsers,
         })
     } catch (error:any) {
@@ -71,7 +73,7 @@ export const findOneUser = async (req:Request, res:Response, next:NextFunction):
         const user = await UserModel.findById(userID)
 
          res.status(200).json({
-            message: "Found Successfully",
+            message: 'Found Successfully',
             data: user,
         })
 
