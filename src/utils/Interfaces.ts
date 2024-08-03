@@ -1,7 +1,8 @@
-export interface User{
+export interface user{
     username: string;
     email: string;
     password: string;
+    googleId: string;
 }
 
 export interface Movie{
